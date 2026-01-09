@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitts's Law Experiment</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Fitts's Law Experiment</h1>
+        <p class="subtitle">Testing the relationship between movement difficulty and time</p>
+
+        <div class="instructions">
+            <h3>Instructions</h3>
+            <ul>
+                <li>Click the green START button to begin each trial</li>
+                <li>Then click the target circle as quickly and accurately as possible</li>
+                <li>Complete all trials across different difficulty levels</li>
+                <li>The Index of Difficulty (ID) = log₂(D/W + 1), where D = distance, W = width</li>
+                <li>Results will show the relationship between ID and movement time</li>
+            </ul>
+        </div>
+
+        <div class="config-panel">
+            <h3 style="margin-bottom: 15px; color: #333;">Experiment Configuration</h3>
+            <div class="config-row">
+                <div class="config-item">
+                    <label>Trials per condition:</label>
+                    <input type="number" id="trialsPerCondition" value="10" min="5" max="30">
+                </div>
+                <div class="config-item">
+                    <label>Participant ID:</label>
+                    <input type="text" id="participantId" placeholder="Enter ID (optional)">
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 15px;">
+                <button class="btn" id="startBtn">Start Experiment</button>
+                <button class="btn btn-secondary" id="resetBtn">Reset</button>
+            </div>
+        </div>
+
+        <div class="stats hidden" id="statsPanel">
+            <div class="stat-card">
+                <div class="stat-value" id="trialCount">0</div>
+                <div class="stat-label">Trial</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="currentID">0.0</div>
+                <div class="stat-label">Current ID (bits)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="lastMT">-</div>
+                <div class="stat-label">Last MT (ms)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="accuracy">-</div>
+                <div class="stat-label">Accuracy (%)</div>
+            </div>
+        </div>
+
+        <div class="experiment-area" id="experimentArea">
+            <div class="message" id="message">Click "Start Experiment" to begin</div>
+        </div>
+
+        <div class="results hidden" id="resultsSection">
+            <h2 style="color: #333; margin-bottom: 20px;">Results</h2>
+
+            <canvas id="resultsChart" width="800" height="400"></canvas>
+
+            <h3 style="color: #333; margin: 20px 0 10px 0;">Summary by Index of Difficulty</h3>
+            <table class="results-table" id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>ID (bits)</th>
+                        <th>Distance (px)</th>
+                        <th>Width (px)</th>
+                        <th>Mean MT (ms)</th>
+                        <th>SD MT (ms)</th>
+                        <th>Error Rate (%)</th>
+                        <th>Throughput (bits/s)</th>
+                        <th>Trials</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsTableBody">
+                </tbody>
+            </table>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" id="downloadBtn">Download Data (CSV)</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="experiment.js"></script>
+</body>
+</html>
